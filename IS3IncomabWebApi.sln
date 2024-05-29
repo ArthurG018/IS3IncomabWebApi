@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IS3IncomabWebApi", "IS3IncomabWebApi\IS3IncomabWebApi.csproj", "{43F62C6F-AFA5-4E99-B080-737D0DF6980D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43F62C6F-AFA5-4E99-B080-737D0DF6980D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43F62C6F-AFA5-4E99-B080-737D0DF6980D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43F62C6F-AFA5-4E99-B080-737D0DF6980D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43F62C6F-AFA5-4E99-B080-737D0DF6980D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48E5CF81-7094-47E0-B0A3-426708E7055A}
+	EndGlobalSection
+EndGlobal

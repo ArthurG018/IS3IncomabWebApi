@@ -1,33 +1,40 @@
+
+using IS3IncomabWebApi.DomainLayer.StaticClass.Record;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IS3IncomabWebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
+        
+        /**
+         
+         PRUEBA
+         
+         */
+        /*[HttpGet(Name = "GetWeatherForecast")]
+        public IActionResult Get()
         {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
-
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var listaStatus = new List<String>();
+            foreach (var status in Enum.GetValues(typeof(Status)))
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+                listaStatus.Add(status.ToString() ?? "");
+            }
+         
+            return Ok(listaStatus);
+        }*/
+
+        [HttpGet(Name = "Lista")]
+        public IActionResult GetList()
+        {
+            return Ok(Status.ListStatus);
+        }
+        [HttpGet(Name = "ListaType")]
+        public IActionResult GetTypet()
+        {
+            return Ok(TypeCylinder.ListTypeCylinders);
         }
     }
 }

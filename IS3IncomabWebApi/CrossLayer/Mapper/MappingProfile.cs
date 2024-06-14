@@ -24,10 +24,10 @@ namespace IS3IncomabWebApi.CrossLayer.Mapper
                 .ReverseMap();
             CreateMap<Cylinder, CylinderDto>()
                 .ForMember(ds => ds.Status, src => src.MapFrom(src => Status.StatusGetId(src.StatusId)))
-                .ForMember(ds => ds.typeCylinder, src => src.MapFrom(src => TypeCylinder.TypeCylinderGetId(src.TypeCylinderId)));
+                .ForMember(ds => ds.TypeCylinder, src => src.MapFrom(src => TypeCylinder.TypeCylinderGetId(src.TypeCylinderId)));
             CreateMap<CylinderDto,Cylinder>()
                 .ForMember(ds => ds.StatusId, src => src.MapFrom(src => src.Status.Id))
-                .ForMember(ds => ds.TypeCylinderId, src => src.MapFrom(src => src.typeCylinder.Id));
+                .ForMember(ds => ds.TypeCylinderId, src => src.MapFrom(src => src.TypeCylinder.Id));
             ;
             CreateMap<DetailTicketCylinder, DetailTicketCylinderDto>().ReverseMap();
             CreateMap<Ticket, TicketDto>().ReverseMap();

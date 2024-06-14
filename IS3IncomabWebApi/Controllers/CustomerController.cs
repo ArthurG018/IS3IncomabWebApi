@@ -1,5 +1,6 @@
 ﻿using IS3IncomabWebApi.ApplicationLayer.Interface;
 using IS3IncomabWebApi.ApplicationLayer.Main;
+using IS3IncomabWebApi.DomainLayer.StaticClass.Structure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IS3IncomabWebApi.Controllers
@@ -14,11 +15,11 @@ namespace IS3IncomabWebApi.Controllers
             _customerMain = customerMain;
         }
 
-        [HttpGet]
+        [HttpPost]
         [ActionName("GetAll")]
-        public IActionResult GetAll(int startIndex, int MaxRecord, string filter)
+        public IActionResult GetAll(PaginationFilter paginationFilter)
         {
-            var response = _customerMain.GetAll(startIndex, MaxRecord, filter);
+            var response = _customerMain.GetAll(paginationFilter.StartIndex, paginationFilter.MaxRecord, paginationFilter.filter);
             if (response.IsSucces) return Ok(response);
             return BadRequest(response.Message);
         }

@@ -2,6 +2,7 @@
 using IS3IncomabWebApi.CrossLayer.Interface;
 using IS3IncomabWebApi.DomainLayer.Entity;
 using IS3IncomabWebApi.DomainLayer.Interface;
+using IS3IncomabWebApi.Modules.MappingDescription;
 using System.Data;
 
 namespace IS3IncomabWebApi.Infraestructure.Repository
@@ -60,6 +61,7 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
         {
             using var db = _connectionDataBase.GetConnection;
             var query = "sp_cylinderGetAll";
+            MappingForDescription.MapCylinder();
             var result = db.Query<Cylinder>(query, commandType: CommandType.StoredProcedure);
             return result;
         }

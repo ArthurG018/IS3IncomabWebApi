@@ -2,7 +2,6 @@
 using IS3IncomabWebApi.ApplicationLayer.Dto;
 using IS3IncomabWebApi.ApplicationLayer.Interface;
 using IS3IncomabWebApi.CrossLayer.Common;
-using IS3IncomabWebApi.DomainLayer.Core;
 using IS3IncomabWebApi.DomainLayer.Interface;
 using Microsoft.IdentityModel.Tokens;
 
@@ -45,6 +44,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
         {
             if (data.IsNullOrEmpty()) return data;
             data[0].TotalRecords = data.Count;
+            if(MaxRecord.Equals(0)) return data;
             var response = data.Skip(StartIndex).Take(MaxRecord);
             
             return response;
@@ -54,7 +54,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
         public List<CustomerDto> FilterCustomer(List<CustomerDto> data, string filter)
         {
             if (filter.IsNullOrEmpty()) return data;
-            data = (from d in data where d.FullName.Contains(filter.ToUpper()) || d.IdentityCard.Contains(filter.ToUpper()) select d).ToList();
+            data = (from d in data where d.FullName.Contains(filter.ToUpper()) || d.IdentityCard.Contains(filter.ToUpper()) orderby d.FullName, d.IsActive select d).ToList();
             return data;
         }
 

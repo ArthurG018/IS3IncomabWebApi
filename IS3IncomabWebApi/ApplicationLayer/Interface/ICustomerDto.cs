@@ -5,6 +5,6 @@ namespace IS3IncomabWebApi.ApplicationLayer.Interface
 {
     public interface ICustomerDto
     {
-        Response<IEnumerable<CustomerDto>> GetAll(int StartIndex, int MaxRecord);
+        Response<IEnumerable<CustomerDto>> GetAll(int StartIndex, int MaxRecord, string filter);
     }
 }

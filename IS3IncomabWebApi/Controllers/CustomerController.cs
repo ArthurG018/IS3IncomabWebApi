@@ -16,9 +16,9 @@ namespace IS3IncomabWebApi.Controllers
 
         [HttpGet]
         [ActionName("GetAll")]
-        public IActionResult GetAll(int startIndex, int MaxRecord)
+        public IActionResult GetAll(int startIndex, int MaxRecord, string filter)
         {
-            var response = _customerMain.GetAll(startIndex, MaxRecord);
+            var response = _customerMain.GetAll(startIndex, MaxRecord, filter);
             if (response.IsSucces) return Ok(response);
             return BadRequest(response.Message);
         }

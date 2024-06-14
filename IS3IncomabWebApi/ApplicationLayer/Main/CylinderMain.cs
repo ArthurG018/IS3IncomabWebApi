@@ -26,7 +26,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             {
                 var cylinders = _cylinderDomain.GetAll();
                 var cylindersFilter = FilterCylinder(_mapper.Map<List<CylinderDto>>(cylinders), filter);
-                response.Data = PageCylinder(StartIndex, MaxRecord, cylindersFilter);
+                response = PageCylinder(StartIndex, MaxRecord, cylindersFilter);
 
                 if (response.Data != null)
                 {
@@ -43,12 +43,13 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
         }
 
         /*Function for pagination*/
-        public IEnumerable<CylinderDto> PageCylinder(int StartIndex, int MaxRecord, List<CylinderDto> data)
+        public Response<IEnumerable<CylinderDto>> PageCylinder(int StartIndex, int MaxRecord, List<CylinderDto> data)
         {
-            if (data.IsNullOrEmpty()) return data;
-            data[0].TotalRecords = data.Count;
-            if (MaxRecord.Equals(0)) return data;
-            var response = data.Skip(StartIndex).Take(MaxRecord);
+            var response = new Response<IEnumerable<CylinderDto>>();
+            if (data.IsNullOrEmpty()) return response;
+            response.Count = data.Count;
+            if (MaxRecord.Equals(0)) return response;
+            response.Data = data.Skip(StartIndex).Take(MaxRecord);
 
             return response;
         }

@@ -18,7 +18,6 @@ namespace IS3IncomabWebApi.ApplicationLayer.Dto
         public Status Status { get; set; }
         public TypeCylinder TypeCylinder { get; set; }
 
-        //pagination
-        public int TotalRecords { get; set; }
+        
     }
 }

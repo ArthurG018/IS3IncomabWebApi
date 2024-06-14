@@ -20,7 +20,7 @@ namespace IS3IncomabWebApi.Controllers
         public IActionResult GetAll(PaginationFilter paginationFilter)
         {
             var response = _cylinderMain.GetAll(paginationFilter.StartIndex, paginationFilter.MaxRecord, paginationFilter.filter);
-            if (response.IsSucces) return Ok(response);
+            if (response.IsSuccess) return Ok(response);
             return BadRequest(response.Message);
         }
     }

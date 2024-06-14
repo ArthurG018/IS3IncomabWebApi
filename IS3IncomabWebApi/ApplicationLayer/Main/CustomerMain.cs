@@ -25,7 +25,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             {
                 var customers = _customerDomain.GetAll();
                 var customersFilter = FilterCustomer(_mapper.Map<List<CustomerDto>>(customers), filter);
-                response.Data = PageCustomer(StartIndex, MaxRecord, customersFilter);
+                response = PageCustomer(StartIndex, MaxRecord, customersFilter);
                 if (response.Data != null)
                 {
                     response.IsSucces = true;
@@ -40,12 +40,13 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             return response;
         }
         /*Function for pagination*/
-        public IEnumerable<CustomerDto> PageCustomer(int StartIndex, int MaxRecord, List<CustomerDto> data )
+        public Response<IEnumerable<CustomerDto>> PageCustomer(int StartIndex, int MaxRecord, List<CustomerDto> data )
         {
-            if (data.IsNullOrEmpty()) return data;
-            data[0].TotalRecords = data.Count;
-            if(MaxRecord.Equals(0)) return data;
-            var response = data.Skip(StartIndex).Take(MaxRecord);
+            var response = new Response<IEnumerable<CustomerDto>> ();
+            if (data.IsNullOrEmpty()) return response;
+            response.Count = data.Count;
+            if(MaxRecord.Equals(0)) return response;
+           response.Data = data.Skip(StartIndex).Take(MaxRecord);
             
             return response;
         }

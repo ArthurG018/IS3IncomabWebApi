@@ -19,6 +19,5 @@ namespace IS3IncomabWebApi.ApplicationLayer.Dto
         public int IsActive { get; set; }
         public int CreateBy { get; set; }
         public int ModifyBy { get; set; }
-        public int TotalRecords { get; set; }
     }
 }

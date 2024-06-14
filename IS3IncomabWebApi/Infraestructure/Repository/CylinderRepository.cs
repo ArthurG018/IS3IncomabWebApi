@@ -33,6 +33,8 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
             var query = "";
             var parameters = new DynamicParameters();
             parameters.Add("", cylinder.Number);
+
+
             var result = db.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
             return result > 0;
         }
@@ -65,5 +67,6 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
             var result = db.Query<Cylinder>(query, commandType: CommandType.StoredProcedure);
             return result;
         }
+
     }
 }

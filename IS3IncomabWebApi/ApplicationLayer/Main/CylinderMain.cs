@@ -66,11 +66,13 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             var response = new Response<bool>();
             try
             {
-                response.Data = _cylinderDomain.DeleteLogic(cylinderId);
+                var cylinder = _cylinderDomain.Get(cylinderId);
+                cylinder.IsActive = (cylinder.IsActive == 1) ? 0 : 1;
+                response.Data = _cylinderDomain.DeleteLogic(cylinder);
                 if (response.Data)
                 {
                     response.IsSuccess = true;
-                    response.Message = "Consulta Exitosa";
+                    response.Message = (cylinder.IsActive == 1) ? "Activado" : "Desactivado";
                 }
             }
             catch (Exception e)
@@ -102,6 +104,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             data = (from d in data where d.Number.Contains(filter.ToUpper())  orderby d.Number, d.IsActive select d).ToList();
             return data;
         }
+
 
         
     }

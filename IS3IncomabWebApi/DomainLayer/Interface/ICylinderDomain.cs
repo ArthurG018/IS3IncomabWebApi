@@ -6,7 +6,7 @@ namespace IS3IncomabWebApi.DomainLayer.Interface
     {
         bool Insert(Cylinder cylinder);
         bool Update(Cylinder cylinder);
-        bool DeleteLogic(int cylinderId);
+        bool DeleteLogic(Cylinder cylinder);
         Cylinder Get(int cylinderId);
         IEnumerable<Cylinder> GetAll();
     }

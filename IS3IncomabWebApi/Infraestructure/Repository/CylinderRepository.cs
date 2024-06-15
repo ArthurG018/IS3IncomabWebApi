@@ -42,12 +42,13 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
             return result > 0;
         }
 
-        public bool DeleteLogic(int cylinderId)
+        public bool DeleteLogic(Cylinder cylinder)
         {
             using var db = _connectionDataBase.GetConnection;
             var query = "sp_cylinderDeleteLogic";
             var parameters = new DynamicParameters();
-            parameters.Add("cylinderId", cylinderId);
+            parameters.Add("cylinderId", cylinder.Id);
+            parameters.Add("isActive", cylinder.IsActive);
             var result = db.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
             return result > 0;
         }
@@ -55,9 +56,10 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
         public Cylinder Get(int cylinderId)
         {
             using var db = _connectionDataBase.GetConnection;
-            var query = "";
+            var query = "sp_cylinderGetId";
             var parameters = new DynamicParameters();
-            parameters.Add("", cylinderId);
+            parameters.Add("cylinderId", cylinderId);
+            MappingForDescription.MapCylinder();
             var result = db.QuerySingle<Cylinder>(query, param: parameters, commandType: CommandType.StoredProcedure);
             return result;
         }

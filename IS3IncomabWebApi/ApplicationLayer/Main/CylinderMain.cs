@@ -61,6 +61,26 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             return response;
         }
 
+        public Response<bool> DeleteLogic(int cylinderId)
+        {
+            var response = new Response<bool>();
+            try
+            {
+                response.Data = _cylinderDomain.DeleteLogic(cylinderId);
+                if (response.Data)
+                {
+                    response.IsSuccess = true;
+                    response.Message = "Consulta Exitosa";
+                }
+            }
+            catch (Exception e)
+            {
+                response.Message = "Consulta no Exitosa " + e.Message;
+                response.IsSuccess = false;
+            }
+            return response;
+        }
+
 
         /*Function for pagination*/
         public Response<IEnumerable<CylinderDto>> PageCylinder(int StartIndex, int MaxRecord, List<CylinderDto> data)
@@ -83,6 +103,6 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             return data;
         }
 
-       
+        
     }
 }

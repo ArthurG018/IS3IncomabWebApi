@@ -68,6 +68,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             var response = new Response<IEnumerable<CylinderDto>>();
             if (data.IsNullOrEmpty()) return response;
             response.Count = data.Count;
+            response.Data = data;
             if (MaxRecord.Equals(0)) return response;
             response.Data = data.Skip(StartIndex).Take(MaxRecord);
 

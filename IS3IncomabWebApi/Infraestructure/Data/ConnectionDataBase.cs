@@ -1,5 +1,6 @@
 ﻿using IS3IncomabWebApi.CrossLayer.Interface;
 using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
 using System.Data;
 
 namespace IS3IncomabWebApi.Infraestructure.Data
@@ -17,8 +18,7 @@ namespace IS3IncomabWebApi.Infraestructure.Data
             {
                 #pragma warning disable IDE0017
                 SqlConnection sqlConnection = new();
-                sqlConnection.ConnectionString = _configuration.GetConnectionString("ConnectionDB");
-                if(sqlConnection == null) { _configuration.GetConnectionString("ConnectionF"); }
+                sqlConnection.ConnectionString = (sqlConnection.WorkstationId.Equals(_configuration.GetConnectionString("DesktopArthur"))) ? _configuration.GetConnectionString("ConnectionDB") : _configuration.GetConnectionString("ConnectionF");
                 sqlConnection.Open();
                 return sqlConnection;
             }

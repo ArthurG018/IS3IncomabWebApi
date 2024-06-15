@@ -2,6 +2,7 @@
 using IS3IncomabWebApi.ApplicationLayer.Dto;
 using IS3IncomabWebApi.ApplicationLayer.Interface;
 using IS3IncomabWebApi.CrossLayer.Common;
+using IS3IncomabWebApi.DomainLayer.Entity;
 using IS3IncomabWebApi.DomainLayer.Interface;
 using Microsoft.IdentityModel.Tokens;
 
@@ -29,17 +30,37 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
 
                 if (response.Data != null)
                 {
-                    response.IsSucces = true;
+                    response.IsSuccess = true;
                     response.Message = "Consulta Exitosa";
                 }
             }
             catch (Exception e)
             {
                 response.Message = "Consulta no Exitosa " + e.Message;
-                response.IsSucces = false;
+                response.IsSuccess = false;
             }
             return response;
         }
+        public Response<bool> Update(CylinderDto cylinderDto)
+        {
+            var response = new Response<bool>();
+            try
+            {
+                response.Data = _cylinderDomain.Update(_mapper.Map<Cylinder>(cylinderDto));
+                if (response.Data)
+                {
+                    response.IsSuccess = true;
+                    response.Message = "Consulta Exitosa";
+                }
+            }
+            catch (Exception e)
+            {
+                response.Message = "Consulta no Exitosa " + e.Message;
+                response.IsSuccess = false;
+            }
+            return response;
+        }
+
 
         /*Function for pagination*/
         public Response<IEnumerable<CylinderDto>> PageCylinder(int StartIndex, int MaxRecord, List<CylinderDto> data)
@@ -60,5 +81,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             data = (from d in data where d.Number.Contains(filter.ToUpper())  orderby d.Number, d.IsActive select d).ToList();
             return data;
         }
+
+       
     }
 }

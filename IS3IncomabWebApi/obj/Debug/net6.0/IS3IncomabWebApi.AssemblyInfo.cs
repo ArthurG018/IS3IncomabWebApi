@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IS3IncomabWebApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b948801551c1a39c37d2472de7b2cec8b13dfef")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+28e6e1df7be73db25034f65c9a3cbf18c298c672")]
 [assembly: System.Reflection.AssemblyProductAttribute("IS3IncomabWebApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IS3IncomabWebApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

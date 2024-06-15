@@ -1,4 +1,5 @@
-﻿using IS3IncomabWebApi.ApplicationLayer.Interface;
+﻿using IS3IncomabWebApi.ApplicationLayer.Dto;
+using IS3IncomabWebApi.ApplicationLayer.Interface;
 using IS3IncomabWebApi.DomainLayer.StaticClass.Structure;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,15 @@ namespace IS3IncomabWebApi.Controllers
         {
             var response = _cylinderMain.GetAll(paginationFilter.StartIndex, paginationFilter.MaxRecord, paginationFilter.filter);
             if (response.IsSuccess) return Ok(response);
+            return BadRequest(response.Message);
+        }
+
+        [HttpPut]
+        [ActionName("Update")]
+        public IActionResult Update(CylinderDto cylinderDto)
+        {
+            var response = _cylinderMain.Update(cylinderDto);
+            if (response.Data) return Ok(response);
             return BadRequest(response.Message);
         }
     }

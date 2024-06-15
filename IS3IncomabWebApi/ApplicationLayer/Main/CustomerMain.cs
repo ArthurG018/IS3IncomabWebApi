@@ -28,14 +28,14 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                 response = PageCustomer(StartIndex, MaxRecord, customersFilter);
                 if (response.Data != null)
                 {
-                    response.IsSucces = true;
+                    response.IsSuccess = true;
                     response.Message = "Consulta Exitosa";
                 }
             }
             catch (Exception e)
             {
                 response.Message = "Consulta no Exitosa " + e.Message;
-                response.IsSucces = false;
+                response.IsSuccess = false;
             }
             return response;
         }

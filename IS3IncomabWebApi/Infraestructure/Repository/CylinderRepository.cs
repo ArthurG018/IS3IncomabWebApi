@@ -30,10 +30,13 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
         public bool Update(Cylinder cylinder)
         {
             using var db = _connectionDataBase.GetConnection;
-            var query = "";
+            var query = "sp_cylinder";
             var parameters = new DynamicParameters();
-            parameters.Add("", cylinder.Number);
-
+            parameters.Add("cylinderId", cylinder.Id);
+            parameters.Add("statusId", cylinder.StatusId);
+            parameters.Add("typeCylinderId", cylinder.TypeCylinderId;
+            parameters.Add("isActive", cylinder.IsActive);
+            parameters.Add("modifyBy", cylinder.ModifyBy);
 
             var result = db.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
             return result > 0;

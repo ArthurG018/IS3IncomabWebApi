@@ -12,9 +12,29 @@ namespace IS3IncomabWebApi.DomainLayer.Core
             _cylinderRepository = cylinderRepository;
         }
 
+        public bool Delete(int cylinderId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Cylinder Get(int cylinderId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Cylinder> GetAll()
         {
             return _cylinderRepository.GetAll();
+        }
+
+        public bool Insert(Cylinder cylinder)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(Cylinder cylinder)
+        {
+            return _cylinderRepository.Update(cylinder);
         }
     }
 }

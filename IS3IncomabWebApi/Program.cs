@@ -16,6 +16,18 @@ builder.Services.AddMapper();
 //services injection
 builder.Services.AddInjection();
 
+//Add cors(Falta seccionar)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("NewPolicy", app =>
+    {
+        app.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

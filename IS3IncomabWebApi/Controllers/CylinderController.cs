@@ -35,9 +35,9 @@ namespace IS3IncomabWebApi.Controllers
         }
         [HttpPut]
         [ActionName("DeleteLogic")]
-        public IActionResult DeleteLogic(int cylinderId)
+        public IActionResult DeleteLogic(int cylinderId, int userId)
         {
-            var response = _cylinderMain.DeleteLogic(cylinderId);
+            var response = _cylinderMain.DeleteLogic(cylinderId, userId);
             if (response.Data) return Ok(response);
             return BadRequest(response.Message);
         }

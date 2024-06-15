@@ -49,6 +49,8 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
             var parameters = new DynamicParameters();
             parameters.Add("cylinderId", cylinder.Id);
             parameters.Add("isActive", cylinder.IsActive);
+            parameters.Add("modifyBy", cylinder.ModifyBy);
+
             var result = db.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
             return result > 0;
         }

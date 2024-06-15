@@ -61,13 +61,14 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             return response;
         }
 
-        public Response<bool> DeleteLogic(int cylinderId)
+        public Response<bool> DeleteLogic(int cylinderId, int userId)
         {
             var response = new Response<bool>();
             try
             {
                 var cylinder = _cylinderDomain.Get(cylinderId);
                 cylinder.IsActive = (cylinder.IsActive == 1) ? 0 : 1;
+                cylinder.ModifyBy = userId;
                 response.Data = _cylinderDomain.DeleteLogic(cylinder);
                 if (response.Data)
                 {

@@ -8,6 +8,6 @@ namespace IS3IncomabWebApi.ApplicationLayer.Interface
     {
         Response<IEnumerable<CylinderDto>> GetAll(int StartIndex, int MaxRecord, string filter);
         Response<bool> Update(CylinderDto cylinderDto);
-        Response<bool> DeleteLogic(int cylinderId);
+        Response<bool> DeleteLogic(int cylinderId, int userId);
     }
 }

@@ -18,6 +18,7 @@ namespace IS3IncomabWebApi.Infraestructure.Data
                 #pragma warning disable IDE0017
                 SqlConnection sqlConnection = new();
                 sqlConnection.ConnectionString = _configuration.GetConnectionString("ConnectionDB");
+                if(sqlConnection == null) { _configuration.GetConnectionString("ConnectionF"); }
                 sqlConnection.Open();
                 return sqlConnection;
             }

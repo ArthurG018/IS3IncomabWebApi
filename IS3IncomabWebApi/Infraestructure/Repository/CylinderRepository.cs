@@ -34,7 +34,7 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
             var parameters = new DynamicParameters();
             parameters.Add("cylinderId", cylinder.Id);
             parameters.Add("statusId", cylinder.StatusId);
-            parameters.Add("typeCylinderId", cylinder.TypeCylinderId;
+            parameters.Add("typeCylinderId", cylinder.TypeCylinderId);
             parameters.Add("isActive", cylinder.IsActive);
             parameters.Add("modifyBy", cylinder.ModifyBy);
 

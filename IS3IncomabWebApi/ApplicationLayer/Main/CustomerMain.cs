@@ -32,7 +32,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                 response = PageCustomer(StartIndex, MaxRecord, customersFilter);
                 if (response.Data != null)
                 {
-                    response.Data = MapNameUsers((List<CustomerDto>) response.Data);
+                    response.Data = MapNameUsers(response.Data);
                 }
                 response.IsSuccess = true;
                 response.Message = "Consulta Exitosa";
@@ -110,7 +110,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             return data;
         }
 
-        public List<CustomerDto> MapNameUsers(List<CustomerDto> data)
+        public IEnumerable<CustomerDto> MapNameUsers(IEnumerable<CustomerDto> data)
         {
             var usres = _userIncomabDomain.GetAll();
             foreach (var item in data)

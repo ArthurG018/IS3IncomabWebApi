@@ -32,7 +32,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                 response = PageCylinder(StartIndex, MaxRecord, cylindersFilter);
                 if (response.Data != null)
                 {
-                    response.Data = MapNameUsers((List<CylinderDto>)response.Data);
+                    response.Data = MapNameUsers(response.Data);
                 }
                 response.IsSuccess = true;
                 response.Message = "Consulta Exitosa";
@@ -110,7 +110,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
         }
 
         /*map users*/
-        public List<CylinderDto> MapNameUsers(List<CylinderDto> data)
+        public IEnumerable<CylinderDto> MapNameUsers(IEnumerable<CylinderDto> data)
         {
             var usres = _userIncomabDomain.GetAll();
             foreach (var item in data)

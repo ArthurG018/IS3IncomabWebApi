@@ -32,6 +32,7 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
             using var db = _connectionDataBase.GetConnection;
             var query = "sp_cylinderUpdate";
             var parameters = new DynamicParameters();
+            parameters.Add("num", cylinder.Number);
             parameters.Add("cylinderId", cylinder.Id);
             parameters.Add("statusId", cylinder.StatusId);
             parameters.Add("typeCylinderId", cylinder.TypeCylinderId);

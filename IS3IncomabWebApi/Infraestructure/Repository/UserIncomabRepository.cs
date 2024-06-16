@@ -49,9 +49,9 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
         public UserIncomab Get(int userIncomabId)
         {
             using var db = _connectionDataBase.GetConnection;
-            var query = "";
+            var query = "sp_userIncomabGetId";
             var parameters = new DynamicParameters();
-            parameters.Add("", userIncomabId);
+            parameters.Add("id", userIncomabId);
             var result = db.QuerySingle<UserIncomab>(query, param: parameters, commandType: CommandType.StoredProcedure);
             return result;
         }
@@ -59,7 +59,7 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
         public IEnumerable<UserIncomab> GetAll()
         {
             using var db = _connectionDataBase.GetConnection;
-            var query = "";
+            var query = "sp_userIncomabGetAll";
             var result = db.Query<UserIncomab>(query, commandType: CommandType.StoredProcedure);
             return result;
         }

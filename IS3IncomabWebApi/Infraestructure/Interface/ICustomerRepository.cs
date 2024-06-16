@@ -6,7 +6,7 @@ namespace IS3IncomabWebApi.DomainLayer.Interface
     {
         bool Insert(Customer customer);
         bool Update(Customer customer);
-        bool Delete(int customerId);
+        bool DeleteLogic(Customer customer);
         Customer Get(int customerId);
         IEnumerable<Customer> GetAll();
     }

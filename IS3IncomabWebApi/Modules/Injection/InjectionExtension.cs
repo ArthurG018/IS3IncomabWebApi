@@ -29,6 +29,8 @@ namespace IS3IncomabWebApi.Modules.Injection
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<IUserIncomabRepository, UserIncomabRepository>();
 
+            //users
+            services.AddScoped<IUserIncomabRepository, UserIncomabRepository>();
 
 
             return services;

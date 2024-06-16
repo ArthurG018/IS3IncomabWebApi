@@ -28,11 +28,8 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                 var cylindersFilter = FilterCylinder(_mapper.Map<List<CylinderDto>>(cylinders), filter);
                 response = PageCylinder(StartIndex, MaxRecord, cylindersFilter);
 
-                if (response.Data != null)
-                {
-                    response.IsSuccess = true;
-                    response.Message = "Consulta Exitosa";
-                }
+                response.IsSuccess = true;
+                response.Message = "Consulta Exitosa";
             }
             catch (Exception e)
             {

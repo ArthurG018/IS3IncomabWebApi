@@ -2,6 +2,8 @@
 using IS3IncomabWebApi.ApplicationLayer.Dto;
 using IS3IncomabWebApi.ApplicationLayer.Interface;
 using IS3IncomabWebApi.CrossLayer.Common;
+using IS3IncomabWebApi.DomainLayer.Core;
+using IS3IncomabWebApi.DomainLayer.Entity;
 using IS3IncomabWebApi.DomainLayer.Interface;
 using Microsoft.IdentityModel.Tokens;
 
@@ -26,7 +28,24 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                 var customers = _customerDomain.GetAll();
                 var customersFilter = FilterCustomer(_mapper.Map<List<CustomerDto>>(customers), filter);
                 response = PageCustomer(StartIndex, MaxRecord, customersFilter);
-                if (response.Data != null)
+                response.IsSuccess = true;
+                response.Message = "Consulta Exitosa";
+            }
+            catch (Exception e)
+            {
+                response.Message = "Consulta no Exitosa " + e.Message;
+                response.IsSuccess = false;
+            }
+            return response;
+        }
+
+        public Response<bool> Update(CustomerDto customerDto)
+        {
+            var response = new Response<bool>();
+            try
+            {
+                response.Data = _customerDomain.Update(_mapper.Map<Customer>(customerDto));
+                if (response.Data)
                 {
                     response.IsSuccess = true;
                     response.Message = "Consulta Exitosa";
@@ -39,6 +58,30 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             }
             return response;
         }
+
+        public Response<bool> DeleteLogic(int customerId, int userId)
+        {
+            var response = new Response<bool>();
+            try
+            {
+                var customer = _customerDomain.Get(customerId);
+                customer.IsActive = (customer.IsActive == 1) ? 0 : 1;
+                customer.ModifyBy = userId;
+                response.Data = _customerDomain.DeleteLogic(customer);
+                if (response.Data)
+                {
+                    response.IsSuccess = true;
+                    response.Message = (customer.IsActive == 1) ? "Activado" : "Desactivado";
+                }
+            }
+            catch (Exception e)
+            {
+                response.Message = "Consulta no Exitosa " + e.Message;
+                response.IsSuccess = false;
+            }
+            return response;
+        }
+
         /*Function for pagination*/
         public Response<IEnumerable<CustomerDto>> PageCustomer(int StartIndex, int MaxRecord, List<CustomerDto> data )
         {
@@ -57,6 +100,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
         {
             if (filter.IsNullOrEmpty()) return data;
             data = (from d in data where d.FullName.Contains(filter.ToUpper()) || d.IdentityCard.Contains(filter.ToUpper()) orderby d.FullName, d.IsActive select d).ToList();
+            
             return data;
         }
 

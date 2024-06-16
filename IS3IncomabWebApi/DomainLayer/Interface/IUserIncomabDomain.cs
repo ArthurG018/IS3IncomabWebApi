@@ -1,6 +1,9 @@
-﻿namespace IS3IncomabWebApi.DomainLayer.Interface
+﻿using IS3IncomabWebApi.DomainLayer.Entity;
+
+namespace IS3IncomabWebApi.DomainLayer.Interface
 {
     public interface IUserIncomabDomain
     {
+        UserIncomab Get(int userIncomabId);
     }
 }

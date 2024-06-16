@@ -31,6 +31,7 @@ namespace IS3IncomabWebApi.Modules.Injection
 
             //users
             services.AddScoped<IUserIncomabRepository, UserIncomabRepository>();
+            services.AddScoped<IUserIncomabDomain, UsersDomain>();
 
 
             return services;

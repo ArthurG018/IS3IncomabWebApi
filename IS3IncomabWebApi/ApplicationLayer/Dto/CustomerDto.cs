@@ -19,5 +19,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Dto
         public int IsActive { get; set; }
         public int CreateBy { get; set; }
         public int ModifyBy { get; set; }
+        public String? NameCreate { get; set; }
+        public String? NameModify { get; set; }
     }
 }

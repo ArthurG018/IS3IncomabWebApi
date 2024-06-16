@@ -2,7 +2,6 @@
 using IS3IncomabWebApi.ApplicationLayer.Dto;
 using IS3IncomabWebApi.ApplicationLayer.Interface;
 using IS3IncomabWebApi.CrossLayer.Common;
-using IS3IncomabWebApi.DomainLayer.Core;
 using IS3IncomabWebApi.DomainLayer.Entity;
 using IS3IncomabWebApi.DomainLayer.Interface;
 using Microsoft.IdentityModel.Tokens;
@@ -13,11 +12,14 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
     {
         private readonly ICustomerDomain _customerDomain;
         private readonly IMapper _mapper;
+        private readonly IUserIncomabDomain _userIncomabDomain;
 
-        public CustomerMain(ICustomerDomain customerDomain, IMapper mapper)
+        public CustomerMain(ICustomerDomain customerDomain, IMapper mapper, IUserIncomabDomain userIncomabDomain)
         {
             _customerDomain = customerDomain;
             _mapper = mapper;
+            _userIncomabDomain = userIncomabDomain;
+
         }
 
         public Response<IEnumerable<CustomerDto>> GetAll(int StartIndex, int MaxRecord, string filter)
@@ -28,6 +30,10 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                 var customers = _customerDomain.GetAll();
                 var customersFilter = FilterCustomer(_mapper.Map<List<CustomerDto>>(customers), filter);
                 response = PageCustomer(StartIndex, MaxRecord, customersFilter);
+                if (response.Data != null)
+                {
+                    response.Data = MapNameUsers((List<CustomerDto>) response.Data);
+                }
                 response.IsSuccess = true;
                 response.Message = "Consulta Exitosa";
             }
@@ -101,6 +107,27 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             if (filter.IsNullOrEmpty()) return data;
             data = (from d in data where d.FullName.Contains(filter.ToUpper()) || d.IdentityCard.Contains(filter.ToUpper()) orderby d.FullName, d.IsActive select d).ToList();
             
+            return data;
+        }
+
+        public List<CustomerDto> MapNameUsers(List<CustomerDto> data)
+        {
+            var usres = _userIncomabDomain.GetAll();
+            foreach (var item in data)
+            {
+                foreach (var item1 in usres)
+                {
+                    if (item.CreateBy == item1.Id)
+                    {
+                        item.NameCreate = item1.Name;
+                    }
+                    if(item.ModifyBy == item1.Id)
+                    {
+                        item.NameModify = item1.Name;
+                    }
+                }
+            }
+
             return data;
         }
 

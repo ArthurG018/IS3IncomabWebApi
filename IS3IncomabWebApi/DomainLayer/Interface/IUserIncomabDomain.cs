@@ -5,5 +5,6 @@ namespace IS3IncomabWebApi.DomainLayer.Interface
     public interface IUserIncomabDomain
     {
         UserIncomab Get(int userIncomabId);
+        IEnumerable<UserIncomab> GetAll();
     }
 }

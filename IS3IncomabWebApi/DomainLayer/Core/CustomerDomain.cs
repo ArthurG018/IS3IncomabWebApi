@@ -6,12 +6,10 @@ namespace IS3IncomabWebApi.DomainLayer.Core
     public class CustomerDomain : ICustomerDomain
     {
         private readonly ICustomerRepository _customerRepository;
-        private readonly IUserIncomabRepository _userIncomabRepository;
 
-        public CustomerDomain(ICustomerRepository customerRepository, IUserIncomabRepository userIncomabRepository)
+        public CustomerDomain(ICustomerRepository customerRepository)
         {
             _customerRepository = customerRepository;
-            _userIncomabRepository = userIncomabRepository;
         }
 
         public bool DeleteLogic(Customer customer)

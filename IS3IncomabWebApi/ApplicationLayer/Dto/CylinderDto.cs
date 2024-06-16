@@ -18,6 +18,10 @@ namespace IS3IncomabWebApi.ApplicationLayer.Dto
         public Status Status { get; set; }
         public TypeCylinder TypeCylinder { get; set; }
 
-        
+        /*Name Users*/
+        public String? NameCreate { get; set; }
+        public String? NameModify { get; set; }
+
+
     }
 }

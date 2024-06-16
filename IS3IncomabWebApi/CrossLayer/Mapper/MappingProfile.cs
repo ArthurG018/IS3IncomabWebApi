@@ -12,7 +12,21 @@ namespace IS3IncomabWebApi.CrossLayer.Mapper
 
             /* CreateMap<Customer,CustomerDto>()
                 .ForMember(destination=>destination.FullName, source => source.MapFrom(src=>src.FullName)).ReverseMap();*/
-            CreateMap<Customer, CustomerDto>().ReverseMap();
+            CreateMap<Customer, CustomerDto>()
+                .ForMember(ds => ds.Id, src => src.MapFrom(src => src.Id))
+                .ForMember(ds => ds.FullName, src => src.MapFrom(src => src.FullName))
+                .ForMember(ds => ds.Phone, src => src.MapFrom(src => src.Phone))
+                .ForMember(ds => ds.IdentityCard, src => src.MapFrom(src => src.IdentityCard))
+                .ForMember(ds => ds.Address, src => src.MapFrom(src => src.Address))
+                .ForMember(ds => ds.IsWholeSaler, src => src.MapFrom(src => src.IsWholeSaler))
+                .ForMember(ds => ds.CreateDate, src => src.MapFrom(src => src.CreateDate))
+                .ForMember(ds => ds.ModifyDate, src => src.MapFrom(src => src.ModifyDate))
+                .ForMember(ds => ds.CreateBy, src => src.MapFrom(src => src.CreateBy))
+                .ForMember(ds => ds.ModifyBy, src => src.MapFrom(src => src.ModifyBy))
+                .ForMember(ds => ds.IsActive, src => src.MapFrom(src => src.IsActive))
+                .ReverseMap();
+
+
             CreateMap<Cylinder, CylinderDto>()
                 .ForMember(ds => ds.Id, src => src.MapFrom(src => src.Id))
                 .ForMember(ds => ds.Number, src=>src.MapFrom(src=>src.Number))

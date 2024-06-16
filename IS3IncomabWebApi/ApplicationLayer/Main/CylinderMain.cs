@@ -5,6 +5,7 @@ using IS3IncomabWebApi.CrossLayer.Common;
 using IS3IncomabWebApi.DomainLayer.Entity;
 using IS3IncomabWebApi.DomainLayer.Interface;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection.Metadata.Ecma335;
 
 namespace IS3IncomabWebApi.ApplicationLayer.Main
 {
@@ -12,11 +13,13 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
     {
         private readonly ICylinderDomain _cylinderDomain;
         private readonly IMapper _mapper;
+        private readonly IUserIncomabDomain _userIncomabDomain;
 
-        public CylinderMain(ICylinderDomain cylinderDomain, IMapper mapper)
+        public CylinderMain(ICylinderDomain cylinderDomain, IMapper mapper, IUserIncomabDomain userIncomabDomain)
         {
             _cylinderDomain = cylinderDomain;
             _mapper = mapper;
+            _userIncomabDomain = userIncomabDomain;
         }
 
         public Response<IEnumerable<CylinderDto>> GetAll(int StartIndex, int MaxRecord, string filter)
@@ -27,7 +30,10 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                 var cylinders = _cylinderDomain.GetAll();
                 var cylindersFilter = FilterCylinder(_mapper.Map<List<CylinderDto>>(cylinders), filter);
                 response = PageCylinder(StartIndex, MaxRecord, cylindersFilter);
-
+                if (response.Data != null)
+                {
+                    response.Data = MapNameUsers((List<CylinderDto>)response.Data);
+                }
                 response.IsSuccess = true;
                 response.Message = "Consulta Exitosa";
             }
@@ -99,11 +105,29 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
         public List<CylinderDto> FilterCylinder(List<CylinderDto> data, string filter)
         {
             if (filter.IsNullOrEmpty()) return data;
-            data = (from d in data where d.Number.Contains(filter.ToUpper())  orderby d.Number, d.IsActive select d).ToList();
+            data = (from d in data where d.Number.Contains(filter.ToUpper()) orderby d.Number, d.IsActive select d).ToList();
             return data;
         }
 
-
-        
+        /*map users*/
+        public List<CylinderDto> MapNameUsers(List<CylinderDto> data)
+        {
+            var usres = _userIncomabDomain.GetAll();
+            foreach (var item in data)
+            {
+                foreach (var item1 in usres)
+                {
+                    if (item.CreateBy == item1.Id)
+                    {
+                        item.NameCreate = item1.Name;
+                    }
+                    if (item.ModifyBy == item1.Id)
+                    {
+                        item.NameModify = item1.Name;
+                    }
+                }
+            }
+            return data;
+        }
     }
 }

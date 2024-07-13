@@ -27,9 +27,9 @@ namespace IS3IncomabWebApi.DomainLayer.Core
             return _customerRepository.GetAll();
         }
 
-        public bool Insert(Customer cylinder)
+        public bool Insert(Customer customer)
         {
-            throw new NotImplementedException();
+            return _customerRepository.Insert(customer);
         }
 
         public bool Update(Customer customer)

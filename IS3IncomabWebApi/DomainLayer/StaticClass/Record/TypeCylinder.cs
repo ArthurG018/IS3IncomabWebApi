@@ -11,6 +11,7 @@
         public static readonly TypeCylinder AcetilenoCilindroSTD7 = new (7, "ACETILENO CILIN. STD.", 7, "KG");
         public static readonly TypeCylinder AcetilenoCilindroSTD8 = new (8, "ACETILENO CILIN. STD.", 8, "KG");
         public static readonly TypeCylinder AireSintetico = new (9, "AIRE SINTETICO 4.7", 10, "M3");
+        public static readonly TypeCylinder GasPropano = new(10, "GAS PROPANO", 10, "M3");
 
         public static readonly TypeCylinder[] ListTypeCylinders = new TypeCylinder[]
         {
@@ -22,7 +23,8 @@
             AcetilenoCilindroSTD6,
             AcetilenoCilindroSTD7,
             AcetilenoCilindroSTD8,
-            AireSintetico
+            AireSintetico,
+            GasPropano
         };
         public static TypeCylinder? TypeCylinderGetId(int id)
         {

@@ -1,4 +1,5 @@
-﻿using IS3IncomabWebApi.ApplicationLayer.Interface;
+﻿using IS3IncomabWebApi.ApplicationLayer.Dto;
+using IS3IncomabWebApi.ApplicationLayer.Interface;
 using IS3IncomabWebApi.ApplicationLayer.Main;
 using IS3IncomabWebApi.CrossLayer.Interface;
 using IS3IncomabWebApi.DomainLayer.Core;
@@ -25,14 +26,26 @@ namespace IS3IncomabWebApi.Modules.Injection
             services.AddScoped<ICylinderDomain,CylinderDomain>();
             services.AddScoped<ICylinderDto, CylinderMain>();
             
+            //Details
             services.AddScoped<IDetailTicketCylinderRepository, DetailTicketCylinderRepository>();
-            services.AddScoped<ITicketRepository, TicketRepository>();
-            services.AddScoped<IUserIncomabRepository, UserIncomabRepository>();
 
-            //users
+            //user
             services.AddScoped<IUserIncomabRepository, UserIncomabRepository>();
             services.AddScoped<IUserIncomabDomain, UsersDomain>();
+            services.AddScoped<IUserDto, UserMain>();
 
+            //MainFlow
+            services.AddScoped<IMainFlowDto, MainFlowDtoMain>();
+
+            //ticket
+            services.AddScoped<ITicketRepository, TicketRepository>();
+            services.AddScoped<ITicketDomain, TicketDomain>();
+            services.AddScoped<ITicketDto,TicketMain>();
+
+            //details
+            services.AddScoped<IDetailTicketCylinderRepository, DetailTicketCylinderRepository>();
+            services.AddScoped<IDetailTicketCylinderDomain, DetailTicketCylinderDomain>();
+            services.AddScoped<IDetailTicketCylinderDto, DetailTicketCylinderMain>();
 
             return services;
         }

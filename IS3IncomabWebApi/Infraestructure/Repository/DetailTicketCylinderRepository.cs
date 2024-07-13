@@ -18,9 +18,14 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
         public bool Insert(DetailTicketCylinder detailTicketCylinder)
         {
             using var db = _connectionDataBase.GetConnection;
-            var query = "";
+            var query = "sp_detailTicketCylinderInsert";
             var parameters = new DynamicParameters();
-            parameters.Add("", detailTicketCylinder.TicketId);
+            parameters.Add("isWarranty", detailTicketCylinder.IsWarranty);
+            parameters.Add("isReturned", detailTicketCylinder.IsReturned);
+            parameters.Add("amount", detailTicketCylinder.Amount);
+            parameters.Add("cilynderId", detailTicketCylinder.CylinderId);
+            parameters.Add("ticketId", detailTicketCylinder.TicketId);
+
             var result = db.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
             return result > 0;
 

@@ -17,7 +17,7 @@ namespace IS3IncomabWebApi.DomainLayer.Core
             return _cylinderRepository.DeleteLogic(cylinder);
         }
 
-        public Cylinder Get(int cylinderId)
+        public Cylinder GetId(int cylinderId)
         {
             return _cylinderRepository.Get(cylinderId);
         }
@@ -27,9 +27,9 @@ namespace IS3IncomabWebApi.DomainLayer.Core
             return _cylinderRepository.GetAll();
         }
 
-        public bool Insert(Cylinder cylinder)
+        public int Insert(Cylinder cylinder)
         {
-            throw new NotImplementedException();
+            return _cylinderRepository.Insert(cylinder);
         }
 
         public bool Update(Cylinder cylinder)

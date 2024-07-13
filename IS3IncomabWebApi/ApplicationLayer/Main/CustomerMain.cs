@@ -65,6 +65,27 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             return response;
         }
 
+        public Response<bool> Insert(CustomerDto cylinderDto)
+        {
+            var response = new Response<bool>();
+            try
+            {
+                var customer = _mapper.Map<Customer>(cylinderDto);
+                response.Data = _customerDomain.Insert(customer);
+                if (response.Data)
+                {
+                    response.IsSuccess = true;
+                    response.Message = "Consulta Exitosa";
+                }
+            }
+            catch (Exception e)
+            {
+                response.Message = "Consulta no Exitosa " + e.Message;
+                response.IsSuccess = false;
+            }
+            return response;
+        }
+
         public Response<bool> DeleteLogic(int customerId, int userId)
         {
             var response = new Response<bool>();
@@ -78,6 +99,26 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                 {
                     response.IsSuccess = true;
                     response.Message = (customer.IsActive == 1) ? "Activado" : "Desactivado";
+                }
+            }
+            catch (Exception e)
+            {
+                response.Message = "Consulta no Exitosa " + e.Message;
+                response.IsSuccess = false;
+            }
+            return response;
+        }
+        public Response<CustomerDto> Get(int customerId)
+        {
+            var response = new Response<CustomerDto>();
+            try
+            {
+                var customer = _customerDomain.Get(customerId);
+                if (customer != null)
+                {
+                    response.Data = _mapper.Map<CustomerDto>(customer);
+                    response.IsSuccess = true;
+                    response.Message = "Consulta Exitosa";
                 }
             }
             catch (Exception e)

@@ -25,6 +25,15 @@ namespace IS3IncomabWebApi.Controllers
             return BadRequest(response.Message);
         }
 
+        [HttpGet]
+        [ActionName("GetId")]
+        public IActionResult GetId(int idCylinder)
+        {
+            var response = _cylinderMain.GetId(idCylinder);
+            if (response.IsSuccess) return Ok(response);
+            return BadRequest(response.Message);
+        }
+
         [HttpPut]
         [ActionName("Update")]
         public IActionResult Update(CylinderDto cylinderDto)
@@ -33,6 +42,16 @@ namespace IS3IncomabWebApi.Controllers
             if (response.Data) return Ok(response);
             return BadRequest(response.Message);
         }
+
+        [HttpPost]
+        [ActionName("Insert")]
+        public IActionResult Insert(CylinderDto cylinderDto)
+        {
+            var response = _cylinderMain.Insert(cylinderDto);
+            if (response.IsSuccess) return Ok(response);
+            return BadRequest(response.Message);
+        }
+
         [HttpPut]
         [ActionName("DeleteLogic")]
         public IActionResult DeleteLogic(int cylinderId, int userId)

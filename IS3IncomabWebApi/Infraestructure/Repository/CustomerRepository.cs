@@ -18,9 +18,16 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
         public bool Insert(Customer customer)
         {
             using var db = _connectionDataBase.GetConnection;
-            var query = "";
+            var query = "sp_customerInsert";
             var parameters = new DynamicParameters();
-            parameters.Add("", customer.FullName);
+            parameters.Add("isActive", customer.IsActive);
+            parameters.Add("fullName", customer.FullName);
+            parameters.Add("identityCard", customer.IdentityCard);
+            parameters.Add("phone", customer.Phone);
+            parameters.Add("address", customer.Address);
+            parameters.Add("isWholeSale", customer.IsWholeSaler);
+            parameters.Add("createBy", customer.CreateBy);
+
             var result = db.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
             return result > 0;
             

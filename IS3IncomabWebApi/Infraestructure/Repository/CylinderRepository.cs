@@ -16,14 +16,18 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
             _connectionDataBase = connectionDataBase;
         }
 
-        public bool Insert(Cylinder cylinder)
+        public int Insert(Cylinder cylinder)
         {
             using var db = _connectionDataBase.GetConnection;
-            var query = "";
+            var query = "sp_cylinderInsert";
             var parameters = new DynamicParameters();
-            parameters.Add("", cylinder.Number);
-            var result = db.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
-            return result > 0;
+            parameters.Add("num", cylinder.Number);
+            parameters.Add("statusId", cylinder.StatusId);
+            parameters.Add("typeCylinderId", cylinder.TypeCylinderId);
+            parameters.Add("createBy", cylinder.CreateBy);
+
+            var result = db.QuerySingle<int>(query, param: parameters, commandType: CommandType.StoredProcedure);
+            return result;
             
         }
 

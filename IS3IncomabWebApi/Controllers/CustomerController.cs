@@ -25,6 +25,23 @@ namespace IS3IncomabWebApi.Controllers
             return BadRequest(response.Message);
         }
 
+        [HttpGet]
+        [ActionName("GetId")]
+        public IActionResult GetId(int customerId)
+        {
+            var response = _customerMain.Get(customerId);
+            if (response.IsSuccess) return Ok(response);
+            return BadRequest(response.Message);
+        }
+        [HttpPost]
+        [ActionName("Insert")]
+        public IActionResult Insert(CustomerDto customerDto)
+        {
+            var response = _customerMain.Insert(customerDto);
+            if (response.IsSuccess) return Ok(response);
+            return BadRequest(response.Message);
+        }
+
         [HttpPut]
         [ActionName("Update")]
         public IActionResult Update(CustomerDto customerDto)

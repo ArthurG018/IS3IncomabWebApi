@@ -4,10 +4,10 @@ namespace IS3IncomabWebApi.DomainLayer.Interface
 {
     public interface ICylinderDomain
     {
-        bool Insert(Cylinder cylinder);
+        int Insert(Cylinder cylinder);
         bool Update(Cylinder cylinder);
         bool DeleteLogic(Cylinder cylinder);
-        Cylinder Get(int cylinderId);
+        Cylinder GetId(int cylinderId);
         IEnumerable<Cylinder> GetAll();
     }
 }

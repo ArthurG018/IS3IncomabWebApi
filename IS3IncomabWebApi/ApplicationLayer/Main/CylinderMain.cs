@@ -69,7 +69,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             var response = new Response<bool>();
             try
             {
-                var cylinder = _cylinderDomain.Get(cylinderId);
+                var cylinder = _cylinderDomain.GetId(cylinderId);
                 cylinder.IsActive = (cylinder.IsActive == 1) ? 0 : 1;
                 cylinder.ModifyBy = userId;
                 response.Data = _cylinderDomain.DeleteLogic(cylinder);
@@ -87,6 +87,46 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             return response;
         }
 
+        public Response<CylinderDto> GetId(int cylinderId)
+        {
+            var response = new Response<CylinderDto>();
+            try
+            {
+                var cylinder = _cylinderDomain.GetId(cylinderId);
+                response.Data = _mapper.Map<CylinderDto>(cylinder);
+                if (response.Data != null)
+                {
+                    response.IsSuccess = true;
+                    response.Message = "Consulta Exitosa";
+                }
+            }
+            catch (Exception e)
+            {
+                response.Message = "Consulta no Exitosa " + e.Message;
+                response.IsSuccess = false;
+            }
+            return response;
+        }
+        public Response<int> Insert(CylinderDto cylinderDto)
+        {
+            var response = new Response<int>();
+            try
+            {
+                var cylinder = _mapper.Map<Cylinder>(cylinderDto);
+                response.Data = _cylinderDomain.Insert(cylinder);
+                if (response.Data>0)
+                {
+                    response.IsSuccess = true;
+                    response.Message = "Consulta Exitosa";
+                }
+            }
+            catch (Exception e)
+            {
+                response.Message = "Consulta no Exitosa " + e.Message;
+                response.IsSuccess = false;
+            }
+            return response;
+        }
 
         /*Function for pagination*/
         public Response<IEnumerable<CylinderDto>> PageCylinder(int StartIndex, int MaxRecord, List<CylinderDto> data)
@@ -129,5 +169,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             }
             return data;
         }
+
+       
     }
 }

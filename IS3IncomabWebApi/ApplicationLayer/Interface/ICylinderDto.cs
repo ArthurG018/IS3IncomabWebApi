@@ -11,5 +11,6 @@ namespace IS3IncomabWebApi.ApplicationLayer.Interface
         Response<bool> Update(CylinderDto cylinderDto);
         Response<bool> DeleteLogic(int cylinderId, int userId);
         Response<CylinderDto> GetId(int cylinderId);
+        public bool ValidNumberCylinder(string num);
     }
 }

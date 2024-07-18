@@ -18,9 +18,9 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             _cylinderDto = cylinderDto;
         }
 
-        public Response<bool> ActionGeneral(SourceMainDTO sourceMainDTO, IEnumerable<ActionListDTO> actionListDTOsDG, IEnumerable<ActionListDTO> actionListDTOsSale, IEnumerable<ActionListDTO> actionListDTOsWarranty)
+        public Response<List<string>> ActionGeneral(SourceMainDTO sourceMainDTO, IEnumerable<ActionListDTO> actionListDTOsDG, IEnumerable<ActionListDTO> actionListDTOsSale, IEnumerable<ActionListDTO> actionListDTOsWarranty)
         {
-            var response = new Response<bool>();
+            var response = new Response<List<string>>();
 
             try
             {
@@ -57,13 +57,16 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                 {
                     foreach (var item in actionListDTOsDG)
                     {
-                        _detailTicketCylinderDto.Insert(new DetailTicketCylinderDto { IsReturned = 0, IsWarranty = 1, Amount=0, CylinderId= item.Cylinder.Id, TicketId= ticketCreateOrUpdate.Data});
-                        if (item.Status.Id == Status.Cliente.Id)
+                        var responseDetailTicketCylinder= _detailTicketCylinderDto.Insert(new DetailTicketCylinderDto { IsReturned = 0, IsWarranty = 1, Amount = 0, CylinderId = item.Cylinder.Id, TicketId = ticketCreateOrUpdate.Data });
+                        if (responseDetailTicketCylinder.IsSuccess)
                         {
-                            var cylinder = _cylinderDto.GetId(item.Cylinder.Id);
-                            if (cylinder.Data !=null)
+                            if (item.Status.Id == Status.Cliente.Id)
                             {
-                                _cylinderDto.Update(cylinder.Data);
+                                var cylinder = _cylinderDto.GetId(item.Cylinder.Id);
+                                if (cylinder.Data != null)
+                                {
+                                    _cylinderDto.Update(cylinder.Data);
+                                }
                             }
                         }
                     }
@@ -77,15 +80,30 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                     {
                         if (item.Cylinder?.Id != 0 && item.Cylinder != null)
                         {
-                            var cylinderInsert = _cylinderDto.Insert(item.Cylinder);
-                            _detailTicketCylinderDto.Insert(new DetailTicketCylinderDto
+                            if (!_cylinderDto.ValidNumberCylinder(item.Cylinder.Number))
                             {
-                                IsReturned = 0,
-                                IsWarranty = 1,
-                                CylinderId = cylinderInsert.Data,
-                                TicketId= ticketCreateOrUpdate.Data,
 
-                            }) ;
+                                response.Data.Add("El número de cilindro " + item.Cylinder.Number + " ya existe");
+                                response.IsSuccess = false;
+                                response.Message = "El número de cilindro " + item.Cylinder.Number + " ya existe";
+                            }
+                            else
+                            {
+                                var cylinderInsert = _cylinderDto.Insert(item.Cylinder);
+                                if (cylinderInsert.IsSuccess)
+                                {
+                                    _detailTicketCylinderDto.Insert(new DetailTicketCylinderDto
+                                    {
+                                        IsReturned = 0,
+                                        IsWarranty = 1,
+                                        CylinderId = cylinderInsert.Data,
+                                        TicketId = ticketCreateOrUpdate.Data,
+
+                                    });
+                                }
+                            
+                            }
+                            
                         }
                         else
                         {
@@ -157,5 +175,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             }
             return response;
         }
+        
     }
+   
 }

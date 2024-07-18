@@ -5,7 +5,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Interface
 {
     public interface IMainFlowDto
     {
-        Response<bool> ActionGeneral(SourceMainDTO sourceMainDTO,
+        Response<List<string>> ActionGeneral(SourceMainDTO sourceMainDTO,
                                         IEnumerable<ActionListDTO> actionListDTOsDG,
                                         IEnumerable<ActionListDTO> actionListDTOsSale,
                                         IEnumerable<ActionListDTO> actionListDTOsWarranty);

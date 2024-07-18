@@ -49,6 +49,11 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             var response = new Response<bool>();
             try
             {
+                if (ValidNumberCylinder(cylinderDto.Number))
+                {
+                    response.IsSuccess = false;
+                    response.Message = "El número de Cilindro ya Existe";
+                }
                 response.Data = _cylinderDomain.Update(_mapper.Map<Cylinder>(cylinderDto));
                 if (response.Data)
                 {
@@ -168,6 +173,13 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                 }
             }
             return data;
+        }
+
+        public bool ValidNumberCylinder(string num)
+        {
+            var cylinders = _cylinderDomain.GetAll();
+            var filter = cylinders.Where(predicate: c => c.Number.ToUpper().Equals(num.ToUpper())).ToList();
+            return filter.Count() == 0;
         }
 
        

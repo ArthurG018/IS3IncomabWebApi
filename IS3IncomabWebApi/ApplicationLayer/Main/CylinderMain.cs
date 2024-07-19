@@ -117,13 +117,23 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             var response = new Response<int>();
             try
             {
-                var cylinder = _mapper.Map<Cylinder>(cylinderDto);
-                response.Data = _cylinderDomain.Insert(cylinder);
-                if (response.Data>0)
+                if (!ValidNumberCylinder(cylinderDto.Number))
                 {
                     response.IsSuccess = true;
-                    response.Message = "Consulta Exitosa";
+                    response.Message = "Este número de cilindro ya existe";
+
                 }
+                else
+                {
+                    var cylinder = _mapper.Map<Cylinder>(cylinderDto);
+                    response.Data = _cylinderDomain.Insert(cylinder);
+                    if (response.Data > 0)
+                    {
+                        response.IsSuccess = true;
+                        response.Message = "Consulta Exitosa";
+                    }
+                }
+
             }
             catch (Exception e)
             {

@@ -52,7 +52,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                 if (ValidNumberCylinder(cylinderDto.Number))
                 {
                     response.IsSuccess = false;
-                    response.Message = "El número de Cilindro ya Existe";
+                    response.Message = "El número de Cilindro no Existe";
                 }
                 response.Data = _cylinderDomain.Update(_mapper.Map<Cylinder>(cylinderDto));
                 if (response.Data)
@@ -119,7 +119,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             {
                 if (!ValidNumberCylinder(cylinderDto.Number))
                 {
-                    response.IsSuccess = true;
+                    response.IsSuccess = false;
                     response.Message = "Este número de cilindro ya existe";
 
                 }

@@ -1,6 +1,6 @@
 ﻿namespace IS3IncomabWebApi.DomainLayer.StaticClass.Record
 {
-    public readonly record struct TypeCylinder (int Id, String Name, int Capacity, String UnityMeasure)
+    public readonly record struct TypeCylinder (int Id, String? Name, int? Capacity, String? UnityMeasure)
     {
         public static readonly TypeCylinder DioxidoCarbono = new (1,"DIOXIDO DE CARBONO",10,"M3");
         public static readonly TypeCylinder OxigenoIndustrial = new (2, "OXIGENO INDUSTRIAL", 10, "M3");

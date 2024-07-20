@@ -1,6 +1,6 @@
 ﻿namespace IS3IncomabWebApi.DomainLayer.StaticClass.Record
 {
-    public readonly record struct Status (int Id, String Name)
+    public readonly record struct Status (int Id, String? Name)
     {
         public static readonly Status Garantia = new (1, "GARANTIA");
         public static readonly Status Cliente = new (2, "CLIENTE");

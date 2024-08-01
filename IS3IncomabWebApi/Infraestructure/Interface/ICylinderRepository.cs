@@ -9,5 +9,6 @@ namespace IS3IncomabWebApi.DomainLayer.Interface
         bool DeleteLogic(Cylinder cylinder);
         Cylinder Get(int cylinderId);
         IEnumerable<Cylinder> GetAll();
+        IEnumerable<Cylinder> GetCylinderCustomer(int idCustomer);
     }
 }

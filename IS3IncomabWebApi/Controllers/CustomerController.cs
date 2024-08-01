@@ -58,5 +58,14 @@ namespace IS3IncomabWebApi.Controllers
             if (response.Data) return Ok(response);
             return BadRequest(response.Message);
         }
+
+        [HttpGet]
+        [ActionName("VlidIdentityCard")]
+        public IActionResult ValidIdentityCard(string identityCard)
+        {
+            var response = _customerMain.ValidIdentityCard(identityCard);
+            if (response.IsSuccess) return Ok(response);
+            return Ok(response.Message);
+        }
     }
 }

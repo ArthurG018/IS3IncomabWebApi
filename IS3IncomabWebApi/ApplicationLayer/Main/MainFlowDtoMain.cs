@@ -18,13 +18,13 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             _cylinderDto = cylinderDto;
         }
 
-        public Response<List<string>> ActionGeneral(SourceMainDTO sourceMainDTO, IEnumerable<ActionListDTO> actionListDTOsDG, IEnumerable<ActionListDTO> actionListDTOsSale, IEnumerable<ActionListDTO> actionListDTOsWarranty)
+        public Response<List<string>> ActionGeneral(SourceMainDTO sourceMainDTO, IEnumerable<CylinderDto> actionListDTOsDG, IEnumerable<CylinderDto> actionListDTOsSale, IEnumerable<CylinderDto> actionListDTOsWarranty)
         {
             var response = new Response<List<string>>();
 
             try
             {
-                if (sourceMainDTO?.Ticket?.Id == 0)
+                if (sourceMainDTO?.Ticket?.Id != 0)
                 {
                     response.Message = "No es posible el registro";
                     response.IsSuccess = false;
@@ -49,7 +49,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                 if (!ticketCreateOrUpdate.IsSuccess)
                 {
                     response.Message = ticketCreateOrUpdate.Message;
-                    response.IsSuccess = false;
+                    response.IsSuccess = true;
                     return response;
                 }
 
@@ -57,12 +57,12 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                 {
                     foreach (var item in actionListDTOsDG)
                     {
-                        var responseDetailTicketCylinder= _detailTicketCylinderDto.Insert(new DetailTicketCylinderDto { IsReturned = 0, IsWarranty = 1, Amount = 0, CylinderId = item.Cylinder.Id, TicketId = ticketCreateOrUpdate.Data });
+                        var responseDetailTicketCylinder= _detailTicketCylinderDto.Insert(new DetailTicketCylinderDto { IsReturned = 0, IsWarranty = 1, Amount = 0, CylinderId = item.Id, TicketId = ticketCreateOrUpdate.Data });
                         if (responseDetailTicketCylinder.IsSuccess)
                         {
                             if (item.Status.Id == Status.Cliente.Id)
                             {
-                                var cylinder = _cylinderDto.GetId(item.Cylinder.Id);
+                                var cylinder = _cylinderDto.GetId(item.Id);
                                 if (cylinder.Data != null)
                                 {
                                     _cylinderDto.Update(cylinder.Data);
@@ -78,18 +78,19 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                 {
                     foreach (var item in actionListDTOsWarranty)
                     {
-                        if (item.Cylinder?.Id != 0 && item.Cylinder != null)
+                        if (item.Id == 0 && item != null)
                         {
-                            if (!_cylinderDto.ValidNumberCylinder(item.Cylinder.Number))
+                            if (!_cylinderDto.ValidNumberCylinder(item.Number))
                             {
 
-                                response.Data.Add("El número de cilindro " + item.Cylinder.Number + " ya existe");
+                                response.Data.Add("El número de cilindro " + item.Number + " ya existe");
                                 response.IsSuccess = false;
-                                response.Message = "El número de cilindro " + item.Cylinder.Number + " ya existe";
+                                response.Message = "El número de cilindro " + item.Number + " ya existe";
                             }
                             else
                             {
-                                var cylinderInsert = _cylinderDto.Insert(item.Cylinder);
+                                //mapear todos los campos del cilindro
+                                var cylinderInsert = _cylinderDto.Insert(item);
                                 if (cylinderInsert.IsSuccess)
                                 {
                                     _detailTicketCylinderDto.Insert(new DetailTicketCylinderDto
@@ -111,12 +112,12 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                             {
                                 IsWarranty= 1,
                                 IsReturned= 0,
-                                CylinderId=item.Cylinder.Id,
+                                CylinderId=item.Id,
                                 TicketId=ticketCreateOrUpdate.Data,
                             });
                             if (item.Status.Id == Status.Devuelto.Id)
                             {
-                                var cylinderGetId = _cylinderDto.GetId(item.Cylinder.Id);
+                                var cylinderGetId = _cylinderDto.GetId(item.Id);
                                 _cylinderDto.Update(new CylinderDto
                                 {
                                     Id=cylinderGetId.Data.Id,
@@ -132,7 +133,8 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                     response.IsSuccess = true;
                 }
 
-                if (actionListDTOsSale.Count()>0)
+                //mapear este error 
+                if (actionListDTOsSale.Count()>0 && actionListDTOsSale.ElementAt(0).Id != -1)
                 {
                     //for
                     foreach (var item in actionListDTOsSale)
@@ -141,13 +143,13 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                         {
                             IsWarranty = 0,
                             IsReturned= 0,
-                            CylinderId = item.Cylinder.Id,
+                            CylinderId = item.Id,
                             TicketId = ticketCreateOrUpdate.Data
                         });
-                        var cylinderInsertSale = _cylinderDto.GetId(item.Cylinder.Id);
+                        var cylinderInsertSale = _cylinderDto.GetId(item.Id);
                         _cylinderDto.Update(new CylinderDto
                         {
-                            Id = item.Cylinder.Id,
+                            Id = item.Id,
                             Number = cylinderInsertSale.Data.Number,
                             Status = (cylinderInsertSale.Data.Status == Status.Devuelto || cylinderInsertSale.Data.Status == Status.Garantia)?Status.Devuelto:Status.Cliente,
                             TypeCylinder = cylinderInsertSale.Data.TypeCylinder,

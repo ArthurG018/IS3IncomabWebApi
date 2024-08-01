@@ -11,5 +11,6 @@ namespace IS3IncomabWebApi.ApplicationLayer.Interface
         Response<bool> DeleteLogic(int customerId, int userId);
         Response<bool> Insert(CustomerDto cylinderDto);
         Response<CustomerDto> Get(int customerId);
+        Response<bool> ValidIdentityCard(string identityCard);
     }
 }

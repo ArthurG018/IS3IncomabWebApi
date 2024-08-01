@@ -55,7 +55,18 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
             var result = db.QuerySingle<UserIncomab>(query, param: parameters, commandType: CommandType.StoredProcedure);
             return result;
         }
+        
+        public UserIncomab GetUser(string user, string psw)
+        {
+            using var db = _connectionDataBase.GetConnection;
+            var query = "sp_userIncomabGetUser";
 
+            var parameters = new DynamicParameters();
+            parameters.Add("user", user);
+            parameters.Add("psw", psw);
+            var result = db.QuerySingle<UserIncomab>(query, param: parameters, commandType: CommandType.StoredProcedure);
+            return result;
+        }
         public IEnumerable<UserIncomab> GetAll()
         {
             using var db = _connectionDataBase.GetConnection;

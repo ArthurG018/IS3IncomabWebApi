@@ -16,7 +16,7 @@ namespace IS3IncomabWebApi.Controllers
         }
 
         [HttpGet(Name = "ListTypeCylinders")]
-        public IActionResult GetListTypetCylinders()
+        public IActionResult GetListTypeCylinders()
         {
             return Ok(TypeCylinder.ListTypeCylinders);
         }

@@ -9,5 +9,6 @@ namespace IS3IncomabWebApi.DomainLayer.Interface
         bool Delete(int userIncomabId);
         UserIncomab Get(int userIncomabId);
         IEnumerable<UserIncomab> GetAll();
+        UserIncomab GetUser(string user, string psw);
     }
 }

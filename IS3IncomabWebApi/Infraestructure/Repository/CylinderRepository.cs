@@ -79,6 +79,18 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
             return result;
         }
 
+        public IEnumerable<Cylinder> GetCylinderCustomer(int idCustomer)
+        {
+            using var db = _connectionDataBase.GetConnection;
+            var query = "sp_devolutionCylinderCustomer";
+            var parameters = new DynamicParameters();
+            parameters.Add("idCustomer", idCustomer);
+
+            MappingForDescription.MapCylinder();
+            var result = db.Query<Cylinder>(query, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
     }
 
 }

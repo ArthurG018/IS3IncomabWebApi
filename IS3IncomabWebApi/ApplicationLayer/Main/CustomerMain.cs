@@ -128,6 +128,30 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             }
             return response;
         }
+        public Response<bool> ValidIdentityCard(string identityCard)
+        {
+            var response = new Response<bool>();
+            try
+            {
+                if (IsDuplicateIdentity(identityCard))
+                {
+                    response.Message = "Documento ya existe";
+                    response.IsSuccess = false;
+                }
+                else
+                {
+                    response.Data = true;
+                    response.Message = "Consulta exitosa";
+                    response.IsSuccess = true;
+                }
+            }
+            catch (Exception e)
+            {
+                response.Message = "Consulta no Exitosa " + e.Message;
+                response.IsSuccess = false;
+            }
+            return response;
+        }
 
         /*Function for pagination*/
         public Response<IEnumerable<CustomerDto>> PageCustomer(int StartIndex, int MaxRecord, List<CustomerDto> data )
@@ -141,6 +165,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             
             return response;
         }
+
 
         /*Function for Filter*/
         public List<CustomerDto> FilterCustomer(List<CustomerDto> data, string filter)
@@ -172,5 +197,10 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             return data;
         }
 
+        public bool IsDuplicateIdentity(string identityCard)
+        {
+            var customers = _customerDomain.GetAll();
+            return customers.Where(customer => customer.IdentityCard.ToString().ToLower().Equals(identityCard.ToLower())).ToList().Count() > 0;
+        }
     }
 }

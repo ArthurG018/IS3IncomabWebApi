@@ -21,5 +21,10 @@ namespace IS3IncomabWebApi.DomainLayer.Core
         {
             return _userIncomabRepository.GetAll();
         }
+
+        public UserIncomab GetUser(string user, string psw)
+        {
+            return _userIncomabRepository.GetUser(user, psw);
+        }
     }
 }

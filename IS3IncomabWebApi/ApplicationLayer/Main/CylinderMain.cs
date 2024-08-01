@@ -160,7 +160,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
         public List<CylinderDto> FilterCylinder(List<CylinderDto> data, string filter)
         {
             if (filter.IsNullOrEmpty()) return data;
-            data = (from d in data where d.Number.Contains(filter.ToUpper()) orderby d.Number, d.IsActive select d).ToList();
+            data = (from d in data where d.Number.ToUpper().Contains(filter.ToUpper()) orderby d.Number, d.IsActive select d).ToList();
             return data;
         }
 

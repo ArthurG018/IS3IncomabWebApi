@@ -20,7 +20,6 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
             using var db = _connectionDataBase.GetConnection;
             var query = "sp_customerInsert";
             var parameters = new DynamicParameters();
-            parameters.Add("isActive", customer.IsActive);
             parameters.Add("fullName", customer.FullName);
             parameters.Add("identityCard", customer.IdentityCard);
             parameters.Add("phone", customer.Phone);

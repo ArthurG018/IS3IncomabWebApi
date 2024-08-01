@@ -3,8 +3,8 @@
     public class ActionGeneralDto
     {
         public SourceMainDTO sourceMainDTO {  get; set; }
-        public IEnumerable<ActionListDTO> actionListDTOsDG {  get; set; }
-        public IEnumerable<ActionListDTO> actionListDTOsSale {  get; set; }
-        public IEnumerable<ActionListDTO> actionListDTOsWarranty {  get; set; }
+        public IEnumerable<CylinderDto> actionListDTOsDG {  get; set; }
+        public IEnumerable<CylinderDto> actionListDTOsSale {  get; set; }
+        public IEnumerable<CylinderDto> actionListDTOsWarranty {  get; set; }
     }
 }

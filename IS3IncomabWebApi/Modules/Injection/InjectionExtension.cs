@@ -5,6 +5,7 @@ using IS3IncomabWebApi.CrossLayer.Interface;
 using IS3IncomabWebApi.DomainLayer.Core;
 using IS3IncomabWebApi.DomainLayer.Interface;
 using IS3IncomabWebApi.Infraestructure.Data;
+using IS3IncomabWebApi.Infraestructure.Interface;
 using IS3IncomabWebApi.Infraestructure.Repository;
 
 namespace IS3IncomabWebApi.Modules.Injection
@@ -46,6 +47,10 @@ namespace IS3IncomabWebApi.Modules.Injection
             services.AddScoped<IDetailTicketCylinderRepository, DetailTicketCylinderRepository>();
             services.AddScoped<IDetailTicketCylinderDomain, DetailTicketCylinderDomain>();
             services.AddScoped<IDetailTicketCylinderDto, DetailTicketCylinderMain>();
+
+            //Report
+            services.AddScoped<IReportRepository, ReportRepository>();
+            services.AddScoped<IReportMain, ReportMain>();
 
             return services;
         }

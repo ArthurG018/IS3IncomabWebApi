@@ -53,7 +53,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                     return response;
                 }
 
-                if (actionListDTOsDG.Count()>0)
+                if (actionListDTOsDG.Count()>0 && actionListDTOsDG.ElementAt(0).Id != -1)
                 {
                     foreach (var item in actionListDTOsDG)
                     {
@@ -74,7 +74,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                     //for
                 }
 
-                if (actionListDTOsWarranty.Count()>0)
+                if (actionListDTOsWarranty.Count()>0 && actionListDTOsWarranty.ElementAt(0).Id != -1)
                 {
                     foreach (var item in actionListDTOsWarranty)
                     {
@@ -89,6 +89,7 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                             }
                             else
                             {
+                                item.Status = Status.Garantia;
                                 //mapear todos los campos del cilindro
                                 var cylinderInsert = _cylinderDto.Insert(item);
                                 if (cylinderInsert.IsSuccess)
@@ -108,6 +109,8 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
                         }
                         else
                         {
+                            item.Status = Status.Garantia;
+                            _cylinderDto.Update(item);
                             _detailTicketCylinderDto.Insert(new DetailTicketCylinderDto
                             {
                                 IsWarranty= 1,

@@ -12,5 +12,6 @@ namespace IS3IncomabWebApi.Infraestructure.Interface
         IEnumerable<Report06> GetReport06();
         IEnumerable<Report07> GetReport07();
         IEnumerable<Report08> GetReport08();
+        ReportDashboard GetReportDashboard();
     }
 }

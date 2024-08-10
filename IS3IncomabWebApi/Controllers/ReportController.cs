@@ -14,8 +14,8 @@ namespace IS3IncomabWebApi.Controllers
             _reportMain = reportMain;
         }
 
-        [HttpGet(Name = "GetReportUbicationCylinderR01")]
-        public IActionResult GetReportUbicationCylinderR01()
+        [HttpGet(Name = "GetReportLocationCylinderR01")]
+        public IActionResult GetReportLocationCylinderR01()
         {
             var response = _reportMain.GetReport01();
             if (response.IsSuccess) return Ok(response);
@@ -74,6 +74,14 @@ namespace IS3IncomabWebApi.Controllers
         public IActionResult GetReportM3ClienteMensualR08()
         {
             var response = _reportMain.GetReport08();
+            if (response.IsSuccess) return Ok(response);
+            return BadRequest(response);
+        }
+
+        [HttpGet(Name = "GetReportDashboard")]
+        public IActionResult GetReportDashboard()
+        {
+            var response = _reportMain.GetReportDashboard();
             if (response.IsSuccess) return Ok(response);
             return BadRequest(response);
         }

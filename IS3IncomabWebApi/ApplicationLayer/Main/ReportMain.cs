@@ -181,5 +181,23 @@ namespace IS3IncomabWebApi.ApplicationLayer.Main
             }
             return response;
         }
+
+        public Response<ReportDashboard> GetReportDashboard()
+        {
+            var response = new Response<ReportDashboard>();
+            try
+            {
+                var report = _reportRepository.GetReportDashboard();
+                response.Data = report;
+                response.Message = "Consulta exitosa";
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Message = "Consulta no Exitosa " + e.Message;
+                response.IsSuccess = false;
+            }
+            return response;
+        }
     }
 }

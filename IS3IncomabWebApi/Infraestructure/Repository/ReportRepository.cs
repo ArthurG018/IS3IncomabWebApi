@@ -80,5 +80,13 @@ namespace IS3IncomabWebApi.Infraestructure.Repository
             var result = db.Query<Report08>(query, commandType: CommandType.StoredProcedure);
             return result;
         }
+
+        public ReportDashboard GetReportDashboard()
+        {
+            using var db = _connectionDataBase.GetConnection;
+            var query = "sp_reportDashboard";
+            var result = db.QuerySingle<ReportDashboard>(query, commandType: CommandType.StoredProcedure);
+            return result;
+        }
     }
 }

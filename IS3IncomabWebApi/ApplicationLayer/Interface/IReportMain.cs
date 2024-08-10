@@ -13,5 +13,6 @@ namespace IS3IncomabWebApi.ApplicationLayer.Interface
         Response<IEnumerable<Report06>> GetReport06(); 
         Response<IEnumerable<Report07>> GetReport07();
         Response<IEnumerable<Report08>> GetReport08();
+        Response<ReportDashboard> GetReportDashboard();
     }
 }
